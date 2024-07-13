@@ -43,10 +43,14 @@ def getInfo(filePath):
     print(f"Address: {address}")
     print(f"Indicative Price: {indicative_price}")
     print(f"Total Price: {total_price}")
+    
+    info = [address, f"ind price {indicative_price}"]
+    return info
 
 def main():
-    scrape(url)
-    getInfo("parse_tree.html")
+    #scrape(url)
+    print(getInfo("parse_tree.html"))
+
 
 if __name__ == "__main__":
     main()
