@@ -4,7 +4,7 @@ import re
 import csv
 
 # Define the input filename
-input_filename = 'parse_tree.html'
+#input_filename = 'parse_tree.html'
 
 # Define the output CSV filename
 output_filename = 'finnLenker.csv'
@@ -14,8 +14,6 @@ url = 'https://www.finn.no/realestate/homes/search.html?location=0.20061'
 
 
 def scrape(url,output_filename):
-    # URL to scrape
-
     # Send a GET request to the URL
     response = requests.get(url)
 
@@ -31,7 +29,7 @@ def scrape(url,output_filename):
         with open(output_filename, 'w', encoding='utf-8') as file:
             file.write(parse_tree)
         
-        print('Parse tree has been written to parse_tree.html')
+        print(f'Parse tree has been written to {output_filename}')
     else:
         print('Failed to retrieve the webpage')
 
@@ -90,8 +88,7 @@ def getFinnKode(input_filename,output_filename):
     print(f'Extracted finnkodes and URLs have been written to {output_filename}')
 
 
-def main():
-    finn_search_url = "https://www.finn.no/realestate/homes/search.html?location=0.20061&location=0.20018"
+def scrape_many(finn_search_url):
     scrape(url,"finn_seach_scrape.html")
     getFinnKode("finn_seach_scrape.html","finn_koder.csv")
 
@@ -107,6 +104,13 @@ def main():
             scrape(row[1],f"data/{row[0]}.html")
             writeInfoToCsv(f"data/{row[0]}.html", f"data5.csv")
 
+def main():
+    #scrape_many("https://www.finn.no/realestate/homes/search.html?location=0.20061&location=0.20018")
+    scrape("https://www.finn.no/realestate/homes/ad.html?finnkode=323525069","test.html")
+
+if __name__ == "__main__":
+    main()
+
 
 # input Finn_search_url
 # ⬇️
@@ -120,6 +124,33 @@ def main():
 # For all scrape:
 # 	Get info & write to csv
 
-
-if __name__ == "__main__":
-    main()
+"""
+Data som ønskes å hente:
+Data, eksempel:
+Finnkode, 336401617
+Lenke, https://www.finn.no/realestate/homes/ad.html?finnkode=323525069
+Tittel, Unik og påkostet 4-roms med rekkehusfølelsen, høyt under taket og herlig utsikt!|Byggeår 2020|Garasje+ Carport|TV&int.
+Adresse, Tjernlia 49, 1279 Oslo
+Prisantydning, 1 890 000 kr
+Totalpris, 5 459 357 kr
+Omkostninger, 1 000 kr
+Fellesgjeld, 3 568 357 kr
+Felleskost/mnd., 17 850 kr
+Fellesformue, 26 954 kr
+Formuesverdi, 1 201 865 k
+Pris på lån, 8 172 kr/mnd
+Boligtype, Leilighet
+Eieform, Andel
+Soverom, 3
+Internt bruksareal, 85 m² (BRA-i)
+Bruksareal, 92 m²
+Eksternt bruksareal, 7 m² (BRA-e)
+Etasje, 3
+Byggeår, 2020
+Energimerking, C - Oransje
+Rom, 4
+Renovert år, 2020
+Tomteareal, 6 636 m² (eiet)
+Fasiliteter, Balkong/Terrasse, Barnevennlig, Bredbåndstilknytning, Garasje/P-plass, Golfbane, Kjæledyr tillatt, Ingen gjenboere, Kabel-TV, Offentlig vann/kloakk, Parkett, Peis/Ildsted, Rolig, Sentralt, Utsikt, Fiskemulighet, Turterreng, Lademulighet, Balansert ventilasjon
+Om boligen, Reis Malik v/Krogsveen har gleden av å presentere denne fantastiske 4-roms leiligheten på Klemetsrud! Tjernlia 49 ligger i et hyggelig og barnevennlig boligområde. Her bor du med marka som nabo med lysløyper og flotte turstier, vinter som sommer. Boligen er i nærheten av skoler, barnehager og en rekke servicetilbud og fasiliteter. Samtidig er det kort pendlervei til Oslo by!
+"""
