@@ -1,4 +1,4 @@
-# intrinsicValueEstimator
+#Intrinsic value estimator
 In this tiny hobby project I'm trying to 
 **estimate the value of items** in this case from finn.no data 
 and compare them to the real price. 
